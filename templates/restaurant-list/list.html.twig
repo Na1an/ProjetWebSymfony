@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'projet projet' %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1> Où y-a-t-il un bon restaurant aux alentours ? </h1>
+        <h3>ici</h3 >
+    </div>
+
+    <div class="container">
+        <h2>Les restaurants</h2>
+        <div class="row flex">
+
+            {% for restaurant in restaurants %}
+                <div class="col-3">
+                    <p> haha </p>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('restaurant-list.show',{id: restaurant.id, slug: restaurant.slug} )}} "> {{ restaurant.name}}</a>
+                            </h5>
+                            
+                            <h6 class="card-text"> Address : {{ restaurant.address}} </h6>
+                            <h6 class="card-text"> Evaluation : {{ restaurant.evaluation}} </h6>
+                            <div class="text-primary" style="font-weight: bold; font-size: 1rem;" > Average Price: {{restaurant.getFormattedPrice}} $</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

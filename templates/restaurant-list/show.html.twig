@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block name restaurant.name %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-8">
+                
+            </div>
+
+            <div class="col-md-4">
+                <h1> {{restaurant.name}}</h1>
+                <h2> {{restaurant.place}} place - {{restaurant.evaluation}} </h2>
+                <div class="text-primary" style="font-size: 4rem; font-weight: bold;"> {{ restaurant.formattedPrice}} $ </div>
+                <a href="#" class="btn btn-primary"> Contacter l'agence </a>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <div class="container text-center mt-4">
+        
+        <p>
+            {{ restaurant.transportation | nl2br}}
+        </p>
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <h2> Cractéristique </h2>
+                <table class="table table-striped">
+                    <tr>
+                        <td>Address </td>
+                        <td>{{restaurant.Address}} </td>
+                    </tr>
+
+                    <tr>
+                        <td> Telephone </td>
+                        <td> {{restaurant.telephone}} </td>
+                    </tr>
+
+                    <tr>
+                        <td> Start at </td>
+                        <td> {{restaurant.getStartAt|date("H:i")}}</td>
+                    </tr>
+
+                    <tr>
+                        <td> Close at </td>
+                        <td> {{ restaurant.getCloseAt|date("H:i")}} </td>
+                    </tr>
+
+                    <tr>
+                        <td> Evaluation </td>
+                        <td> {{ restaurant.evaluation}} </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <h2> spécifique </h2>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+{% endblock %}

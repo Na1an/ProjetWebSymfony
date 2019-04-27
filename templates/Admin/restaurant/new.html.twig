@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Creer un restaurant' %}
+
+{% block body %}
+    <div class="container   mt-4">
+        <h2> Create un restaurant</h2>
+        {{ include('Admin/restaurant/form.html.twig', {form: form, button: 'add' }) }}
+
+    </div>
+{% endblock %}
