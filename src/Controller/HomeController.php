@@ -22,9 +22,9 @@ class HomeController extends AbstractController{
      */
     public function index (PropertyRepository $repository, RestaurantRepository $repository2){
         $properties = $repository->findLatest();
-        $restaurants = $repository2->findAll();
+        $restaurants = $repository2->findLatest();
         return $this->render('pages/home.html.twig',[
-            'propertiess' => $properties,
+            //'propertiess' => $properties,
             'restaurants' => $restaurants, 
         ]);
     }

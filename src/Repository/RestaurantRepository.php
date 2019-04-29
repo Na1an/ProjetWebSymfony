@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Restaurant;
+use App\Entity\RestaurantSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
  * @method Restaurant|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,20 +21,37 @@ class RestaurantRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Restaurant::class); 
     }
+    /**
+     * @return Query
+     */
 
-    public function findAllVisible() : array
+    public function findAllVisibleQuery(RestaurantSearch $search) : Query
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.place > 0')
-            ->getQuery()
-            ->getResult();
+        $query = $this->findVisibleQuery();
+        
+        if($search->getMaxPrice()){
+            $query = $query
+                ->andWhere('p.average_price <= :maxprice')
+                ->setParameter('maxprice', $search->getMaxPrice());
+            
+
+        }
+
+        if($search->getMinPlace()){
+            $query = $query
+                ->andWhere('p.place >= :minplace')
+                ->setParameter('minplace', $search->getMinPlace());
+            
+
+        }
+        return $query->getQuery();
     }
     
     public function findLatest() : array
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.place > 0')
-            ->setMaxResults(4)
+            ->setMaxResults(8)
             ->getQuery()
             ->getResult();
     }
@@ -39,7 +59,8 @@ class RestaurantRepository extends ServiceEntityRepository
     private function findVisibleQuery () : QueryBuilder
     {
         return $this->createQueryBuilder('p')
-        ->where('p.place > 0');
+        ->where('p.place > 0')
+        ;
     }
 
     // /**

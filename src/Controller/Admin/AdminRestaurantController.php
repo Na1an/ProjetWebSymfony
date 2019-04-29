@@ -57,6 +57,7 @@ class AdminRestaurantController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $this->em->flush();
+            $this->addFlash('sucess','Bien modifié !');
             return $this->redirectToRoute('admin.restaurant.index');
         }
 
@@ -79,6 +80,7 @@ class AdminRestaurantController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $this->em->persist($restaurant);
             $this->em->flush();
+            $this->addFlash('sucess','Bien créé !');
             return $this->redirectToRoute('admin.restaurant.index');
         }
 

@@ -6,28 +6,52 @@
     <div class="jumbotron text-center">
         <h1> Où y-a-t-il un bon restaurant aux alentours ? </h1>
         <h3>ici</h3 >
+        <div class="container">
+            {{ form_start(form) }}
+                <div class="form-row align-items-end" >
+                    <div class="col-5">
+                        {{form_row(form.minPlace)}}
+                    </div>
+
+                    <div class="col-5">
+                        {{form_row(form.maxPrice)}}
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-group">
+                            <button class="btn btn-primary"> Rechercher </button>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+            {{ form_end(form) }}
+        </div>
     </div>
 
     <div class="container">
         <h2>Les restaurants</h2>
         <div class="row flex">
-
             {% for restaurant in restaurants %}
-                <div class="col-3">
-                    <p> haha </p>
+                <div class="col-4 mt-4" >
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href="{{ path('restaurant-list.show',{id: restaurant.id, slug: restaurant.slug} )}} "> {{ restaurant.name}}</a>
+                                <a href="{{ path('restaurant-list.show',{id: restaurant.id, slug: restaurant.slug} )}} "> {{ restaurant.name }}</a>
                             </h5>
                             
                             <h6 class="card-text"> Address : {{ restaurant.address}} </h6>
-                            <h6 class="card-text"> Evaluation : {{ restaurant.evaluation}} </h6>
-                            <div class="text-primary" style="font-weight: bold; font-size: 1rem;" > Average Price: {{restaurant.getFormattedPrice}} $</div>
+                            <h6 class="card-text"> Evaluation : {{ restaurant.evaluation}} - Place : {{restaurant.place}}</h6>
+                            <div class="text-primary" style="font-weight: bold; font-size: 1rem;" > Average Price: {{restaurant.getFormattedPrice}} €</div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
+        </div>
+
+        <div class="pagination">
+            {{ knp_pagination_render(restaurants)}}
         </div>
     </div>
 {% endblock %}

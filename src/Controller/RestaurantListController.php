@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Restaurant;
+use App\Entity\RestaurantSearch;
+use App\Form\RestaurantSearchType;
 use \DateTime;
 use App\Repository\RestaurantRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class RestaurantListController extends AbstractController{ 
@@ -35,10 +39,9 @@ class RestaurantListController extends AbstractController{
      * @return Response
      */
 
-     public function index(): Response{
+     public function index(PaginatorInterface $paginator, Request $request  ): Response{
 
         /*
-       
         $time = "10:30";
         $time2 = "23:30";
 
@@ -55,10 +58,20 @@ class RestaurantListController extends AbstractController{
         $em->persist($restaurant);
         $em->flush();
         */
-        $restaurant = $this->repository->findAll();
+
+        $search = new RestaurantSearch();
+        $form = $this->createForm(RestaurantSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $restaurant = $paginator->paginate(
+            $this->repository->findAllVisibleQuery($search),
+            $request->query->getInt('page', 1),
+            12
+        );
         return $this->render('restaurant-list/list.html.twig',[
             'current_menu' => 'restaurantlist',
             'restaurants' => $restaurant,
+            'form' => $form->createView(),
         ]);
 
 

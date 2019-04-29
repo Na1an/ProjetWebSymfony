@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'projet projet' %}
+{% block title ' welcome! ' %}
 
 {% block body %}
     <div class="jumbotron text-center">
@@ -11,19 +11,6 @@
     <div class="container">
         <h2>Les restaurants quotidien </h2>
         <div class="row flex">
-            {% for property in propertiess %}
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{{ path('property.show',{id: property.id, slug: property.slug} )}} "> {{ property.title}}</a>
-                            </h5>
-                            <p class="card-text"> {{ property.city}} ({{property.postalCode}}) </p>
-                            <div class="text-primary" style="font-weight: bold; font-size: 2rem;" > {{property.getFormattedPrice}} $</div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
 
             {% for restaurant in restaurants %}
                 <div class="col-3">
@@ -35,7 +22,7 @@
                             
                             <h6 class="card-text"> Address : {{ restaurant.address}} </h6>
                             <h6 class="card-text"> Evaluation : {{ restaurant.evaluation}} </h6>
-                            <div class="text-primary" style="font-weight: bold; font-size: 1rem;" > Average Price: {{restaurant.getFormattedPrice}} $</div>
+                            <div class="text-primary" style="font-weight: bold; font-size: 1rem;" > Average Price: {{restaurant.getFormattedPrice}} €</div>
                         </div>
                     </div>
                 </div>
