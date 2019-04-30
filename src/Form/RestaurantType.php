@@ -2,11 +2,13 @@
 namespace App\Form;
 
 use App\Entity\Restaurant;
+use App\Entity\Option;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver; 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType; 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RestaurantType extends AbstractType
 {
@@ -21,6 +23,11 @@ class RestaurantType extends AbstractType
             ->add('average_price')
             ->add('transportation')
             ->add('place')
+            ->add('options',EntityType::class,[
+                'class' => Option::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+            ])
             ->add('evaluation', ChoiceType::class, [
                 'choices' => $this->getEvaChoice()
             ])

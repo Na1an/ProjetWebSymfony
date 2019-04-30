@@ -7,7 +7,7 @@ use App\Entity\RestaurantSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query;
+use Doctrine\ORM\Query as Query;
 
 /**
  * @method Restaurant|null find($id, $lockMode = null, $lockVersion = null)
@@ -41,9 +41,19 @@ class RestaurantRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('p.place >= :minplace')
                 ->setParameter('minplace', $search->getMinPlace());
-            
+        }
+
+        if($search->getOptions()->count() > 0){
+            $k = 0;
+            foreach($search->getOptions() as $option) {
+                $k++;
+                $query = $query
+                    ->andWhere(":option$k MEMBER OF p.options")
+                    ->setParameter("option$k", $option);
+            }
 
         }
+
         return $query->getQuery();
     }
     

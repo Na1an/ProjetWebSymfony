@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class RestaurantSearch{
     /**
@@ -21,6 +22,17 @@ class RestaurantSearch{
     /**
      * @return int|null
      */
+
+
+    /**
+     * @var ArrayCollection
+     */
+    private $options;
+
+    public function __construct()
+    {
+        $this->options = new ArrayCollection();
+    }
 
     public function getMaxPrice() :?int
     {
@@ -58,6 +70,24 @@ class RestaurantSearch{
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+
+    public function getOptions(): ArrayCollection
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param ArrayCollection|null $options
+     * @return ArrayCollection
+     */
+
+    public function setOptions(ArrayCollection $options): void
+    {
+        $this->options = $options;
+    }
     
 
 }
