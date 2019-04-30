@@ -40,7 +40,13 @@
             {% for restaurant in restaurants %}
                 <div class="col-4 mt-4" >
                     <div class="card">
+                        {% if restaurant.filename %}
+                            <!--<img src="/images/restaurants/{{ restaurant.filename}}" alt="card-img-top" style="width: 100%; height:auto" >-->
+                            <img src="{{vich_uploader_asset(restaurant, 'imageFile')}}" alt="card-img-top" style="width: 100%; height:auto" >
+                        {% endif %}
                         <div class="card-body">
+                            
+
                             <h5 class="card-title">
                                 <a href="{{ path('restaurant-list.show',{id: restaurant.id, slug: restaurant.slug} )}} "> {{ restaurant.name }}</a>
                             </h5>
