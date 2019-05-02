@@ -2,34 +2,37 @@
 
 namespace App\Form;
 
-use App\Entity\RestaurantSearch;
-use App\Entity\Option;
+use App\Entity\Reserver;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class ReserverType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            
+            ->add('firstname', TextType::class)
+            ->add('lastname', TextType::class)
+            ->add('phone', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('message', TextareaType::class)
+            ->add('time', DateTimeType::class, [
+                'widget' => 'single_text',
+                'data' => new \DateTime(),
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => RestaurantSearch::class,
-            'method' => 'get',
-            'csrf_protection' => false
+            'data_class' => Reserver::class,
         ]);
     }
 
-    public function getBlockPrefix()
-    {
-        return '';
-    }
 }

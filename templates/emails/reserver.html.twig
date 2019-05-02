@@ -1,0 +1,35 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Reserver{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">{{ reserver.firstName }}</th>
+        </tr>
+        <tr>
+            <th scope="col">Prenom</th>
+            <th scope="col">{{ reserver.lastName }}</th>
+        </tr>
+        <tr>
+            <th scope="col">Phone</th>
+            <th scope="col">{{ reserver.phone }}</th>
+        </tr>
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">{{ reserver.email }}</th>
+        </tr>
+        <tr>
+            <th scope="col">Message</th>
+            <th scope="col">{{ reserver.message }}</th>
+        </tr>
+    </table>
+
+    </div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraint as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Reserver{
     /**
@@ -22,9 +22,7 @@ class Reserver{
     /**
      * @var string|null
      * @Assert\NotBlank()
-     * @Assert\Regex(
-     *  pattern="/[0~9]{10}
-     * ")
+     * @Assert\Regex(pattern="/[0-9]{10}/")
      */
     private $phone;
 
@@ -44,6 +42,11 @@ class Reserver{
     private $message;
 
     /**
+     * @var time|null
+     */
+    private $time;
+
+    /**
      * @var Restaurant|null
      */
     private $restaurant;
@@ -60,7 +63,7 @@ class Reserver{
      * @param string|null $firstname
      * @return Reserver
      */
-    public function setFirstname(?string $firstname): Contact
+    public function setFirstname(?string $firstname): Reserver
     {
         $this->firstname = $firstname;
         return $this;
@@ -76,7 +79,7 @@ class Reserver{
      * @param string|null $lastname
      * @return Reserver
      */
-    public function setLastname(?string $lastname): Contact
+    public function setLastname(?string $lastname): Reserver
     {
         $this->lastname = $lastname;
         return $this;
@@ -92,7 +95,7 @@ class Reserver{
      * @param string|null $phone
      * @return Reserver
      */
-    public function setPhone(?string $phone): Contact
+    public function setPhone(?string $phone): Reserver
     {
         $this->phone = $phone;
         return $this;
@@ -108,7 +111,7 @@ class Reserver{
      * @param string|null $email
      * @return Reserver
      */
-    public function setEmail(?string $email): Contact
+    public function setEmail(?string $email): Reserver
     {
         $this->email = $email;
         return $this;
@@ -124,7 +127,7 @@ class Reserver{
      * @param string|null $message
      * @return Reserver
      */
-    public function setMessage(?string $message): Contact
+    public function setMessage(?string $message): Reserver
     {
         $this->message = $message;
         return $this;
@@ -145,6 +148,17 @@ class Reserver{
     public function setRestaurant(?Restaurant $restaurant){
         $this->restaurant = $restaurant;
         return $this;
+    }
 
+    public function getTime(): ?\DateTimeInterface
+    {
+        return $this->time;
+    }
+
+    public function setTime(\DateTimeInterface $time): self
+    {
+        $this->time = $time;
+        
+        return $this;
     }
 }
