@@ -26,6 +26,7 @@ class RestaurantType extends AbstractType
             ->add('place')
             ->add('options',EntityType::class,[
                 'class' => Option::class,
+                'required' => false,
                 'choice_label' => 'name',
                 'multiple' => true,
             ])

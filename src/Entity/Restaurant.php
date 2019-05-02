@@ -45,6 +45,7 @@ class Restaurant
 
     /**
      * @var File|null
+     * //@Assert\Image(mimeTypes="image/jpg")
      * @Vich\UploadableField(mapping="restaurant_image", fileNameProperty="filename")
      */
     private $imageFile;
