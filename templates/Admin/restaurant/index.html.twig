@@ -16,7 +16,7 @@
             <thead>
                 <tr>
                     <th>Titre</th>
-                    <th>Actions</th>
+                    <th>Éditer - Supprimer</th>
                 </tr>
             </thead>
 
@@ -25,11 +25,15 @@
                 <tr>
                     <td>{{restaurant.name}}</td>
                     <td>
-                        <a href="{{ path('admin.restaurant.edit', {id: restaurant.id}) }}" class="btn btn-primary">Editer</a>
+                        <a href="{{ path('admin.restaurant.edit', {id: restaurant.id}) }}" class="btn">
+                            <ion-icon name="construct"></ion-icon>
+                        </a>
                         <form method="post" action="{{ path('admin.restaurant.delete', {id: restaurant.id}) }}" style="display:inline-block" onsubmit="return confirm('sure ?')">
                             <input type="hidden" name="_method" value="DELETE" >
                             <!--<input type="hidden" name="_token" value="{{ csrf_token('delete ~ restaurant.id') }}">-->
-                            <button class="btn btn-danger"> Supprimer </button>
+                            <button class="btn"> 
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                            </button>
                         </form>
                     </td>
                 </tr>

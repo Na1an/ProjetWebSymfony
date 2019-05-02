@@ -49,6 +49,7 @@ class AdminRestaurantController extends AbstractController
     /**
      * @Route("/admin-restaurant/{id}", name="admin.restaurant.edit")
      * @param Restaurant $restaurant
+     * @param Request $request
      * @return \Symfony\Composant\HttpFoundation\Response
      */
 

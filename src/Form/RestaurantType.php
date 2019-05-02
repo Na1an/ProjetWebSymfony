@@ -7,9 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver; 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType; 
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class RestaurantType extends AbstractType
 {
@@ -19,14 +19,19 @@ class RestaurantType extends AbstractType
             ->add('name')
             ->add('address')
             ->add('telephone')
-            ->add('start_at')
-            ->add('close_at')
+            ->add('start_at',DateTimeType::class, [
+                'widget' => 'single_text',
+                'data' => new \DateTime(),
+            ])
+            ->add('close_at',DateTimeType::class, [
+                'widget' => 'single_text',
+                'data' => new \DateTime(),
+            ])
             ->add('average_price')
             ->add('transportation')
             ->add('place')
             ->add('options',EntityType::class,[
                 'class' => Option::class,
-                'required' => false,
                 'choice_label' => 'name',
                 'multiple' => true,
             ])
@@ -34,7 +39,7 @@ class RestaurantType extends AbstractType
                 'required' => false
             ])
             ->add('evaluation', ChoiceType::class, [
-                'choices' => $this->getEvaChoice()
+                'choices' => $this->getEvaChoice(),
             ])
         ;
     }
@@ -49,10 +54,10 @@ class RestaurantType extends AbstractType
     private function getEvaChoice()
     {
         $choices = Restaurant::EVALUATION;
-        $output = [];
+        $res = [];
         foreach($choices as $k => $v) {
-            $output[$v] = $k;
+            $res[$v] = $k;
         }
-        return $output;
+        return $res;
     }
 }
