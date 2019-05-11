@@ -3,3 +3,165 @@
 	password: demo
 
 (2)　utilise maildev pour recevoire des e-mails
+----------------------------------------------------------------------------------------
+Projet Programation Web 2019 - Réseaux Sociaux  
+=================================
+*Sébastien PALMER Yuchen BAI L3 Math-Info PARIS 05/2019*
+
+Ce peojet réalise une site internet pour réserver de restaurants en ligne.
+
+
+Avant propos
+==========================
+
+Ce projet est implémenté avec Symfony 4 + Mysql (Ver 14.14 Distrib 5.7.21, for Linux (x86_64) using  EditLine wrapper).
+
+(1) Pour quoi utilise Symfony 4?
+
+	Symfony est un ensemble de composants PHP ainsi qu'un framework MVC libre écrit en PHP.
+	Il fournit des fonctionnalités modulables et adaptables qui permettent de faciliter et d’accélérer le développement d'un site web.
+  
+Requirements
+==========================
+
+(1) PHP version .
+
+	Symfony 4.0 requiert PHP version 7.1.3 ou supérieur afin de fonctionner.
+
+	Ce projet est implémenté sous enviroment Linux (Deepin core debian).
+	Normalement, il marche sur tous les ordinateur sous OS Linux.
+
+(2) Configuration de Mysql.
+
+	Dans notre projet, on utilise utf8 pour les données de database, donc il faut faire avant tout la configuration de mysql.
+	Après beaucoup de recherche, je vous propose de faire :
+
+		(a) cd /etc/mysql
+		(b) Ajouet les textes suivants à la fin du my.cnf pour la charset doit être utf8 :
+			[mysqld]
+
+			character_set_server=utf8
+
+			[mysql]
+
+			default-character-set= utf8
+ 
+			[client]
+
+			default-character-set = utf8
+
+
+Avant installtion, je vous propose de input sur terminal:
+    
+	->sudo apt-get update
+
+(3) composer est obligatoire.
+    
+    	Vous pouver consulter le lien suivant pour installer composer.
+    	How to Install and use composer on Ubuntu: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-18-04
+
+(4) php est obligatoire.
+	
+    	->sudo apt-get install php7.2
+
+(5) npm est obligatoire.
+
+    	->sudo apt-get install npm
+
+(6*) maildev est optionnel.
+
+	->npm -g maildev
+
+Installation
+==========================
+
+(1) Installer le package "ProjetWeb-PALMER-BAI-2019".
+
+(2) Créer user et databse de mysql;
+    
+    	mysql>CREATE USER 'username'@'host' IDENTIFIED BY 'password';
+    	mysql>GRANT privileges ON databasename.tablename TO 'username'@'host';
+    	mysql>create database DatabaseName;
+    	mysql>use DatabaseName;
+    	mysql>source ~/db.sql
+    	mysql>exit;
+
+(3) Tester l'état de mysql:
+    
+    	->service mysql status
+	(si il est actif, c'est bon, mais on vous propose de restart le server de mysql)
+    	->service mysql restart
+
+
+(4) Sous le chemin ~/ProjetWeb-PALMER-BAI-2019, pour installer les dépendences, input:
+
+    	->composer update
+    	->composer install
+    	->sudo apt-get install php-mysql
+
+(5) Sous le chemin ~/ProjetWeb-PALMER-BAI-2019, pour faire la configuration de dabase de projet, 
+    il faut ajouter le nom de user et mot de passe de mysql:
+
+    	->ls -a
+    	->vi .env
+    	Dans le fichier .env, ligne 27, vous allons trouver DATABASE_URL=mysql://yyuchen:password@127.0.0.1:3306/masuperagence
+    	Changer yyuchen par ton nom d'utilisateur, password par ton password, masuperagence par ton nom de database.
+
+(6) Pour configurer la doctrine de symfony:
+
+    	(si vous vouler créer ton dabase vide , utilise la commande: php bin/console doctrine:database:create)
+    	->php bin/console doctrine:migraton:migrate
+    	->php bin/console make:migration
+
+(7) Fournie un compte pour test:
+
+    	Nom d'utilisateur: demo
+    	Mot de pass: demo
+
+Fonctionnalités
+==========================
+
+(0) Ajouter des données aléatoire:
+    
+    	Vous pouver ajouter 20 l'entity aléatoire: 
+    	->php bin/console doctrine:fixtures:load --append
+    	Si vous vouller ajouter plus une fois, il suffit de midier le ficher RestaurantFixture.php sous ~/src/DataFixtures,
+    	ligne 15, modifier 20 à un nombre entier.
+
+(1) "ProjetWeb" 
+
+	Cliquez button ProjetWeb, revenir le page principal.
+
+	Cliquez button Connecter, aller le page de connection,
+
+	Cliquez button Restaurants, aller le page de restaurant list.
+
+(*) Attentions!
+
+	Les fonctionnalités suivantes ne sont pas disponibles si vous n'êtes pas enregistré.
+
+(2) "options"
+	
+	Pour aller dans le page "gestion d'etiquette pour toutes les restaurants".
+
+(3) "gestion"
+	
+	Pour aller dans le page "gestion des entity des restaurants".
+
+(4) "Se déconnecter"
+	
+	Pour se déconnecter.	
+
+(5) Pour la réservetion et service de cliente, il faut installer maildev, et on peut recevoir les message par maildev.
+	
+	->maildev
+	Et après, dans le navgateur, http://0.0.0.0:1080/#/ est l'adresse de l'application.
+
+FAQ
+==========================
+
+(1) Sur les dépendences.
+
+ Je utilise becucoup beaucoupe de outils pour réaliser le projet. Bootstrap 4, select2, vich/uploader-bundle, valiator...
+
+
